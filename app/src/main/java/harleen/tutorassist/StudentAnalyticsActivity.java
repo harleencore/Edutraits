@@ -6,13 +6,41 @@ import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentAnalyticsActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter;
+    RecyclerView.LayoutManager layoutManager;
+
+    List<WorkHistoryUtils> workHistoryUtilsList;
+
+    RequestQueue rq;
+
+    String request_url = "http://localhost/testapi.php";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_analytics_page);
@@ -41,12 +69,67 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
         series.setDataPointsRadius(10);
         series.setThickness(8);
 
-// custom paint to make a dotted line
+        // custom paint to make a dotted line
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(10);
         paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
         series.setCustomPaint(paint);
+
+        // Load work history
+
+        rq = Volley.newRequestQueue(this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        workHistoryUtilsList = new ArrayList<>();
+
+        sendRequest();
     }
+    public void sendRequest(){
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, request_url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                for(int i = 0; i < response.length(); i++){
+
+                    WorkHistoryUtils workHistoryUtils = new WorkHistoryUtils();
+
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(i);
+
+                        workHistoryUtils.setWorkname(jsonObject.getString("workname"));
+                        workHistoryUtils.setType(jsonObject.getString("type"));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    workHistoryUtilsList.add(workHistoryUtils);
+
+                }
+
+                adapter = new WorkHistoryAdapter(StudentAnalyticsActivity.this, workHistoryUtilsList);
+
+                recyclerView.setAdapter(adapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("Volley Error: ", "error");
+            }
+        });
+
+        rq.add(jsonArrayRequest);
+
+    }
+
 
 }
