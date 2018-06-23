@@ -63,8 +63,8 @@ TABLES['workhistory'] = (
     "  `studentid` int(8) NOT NULL,"
     "  `subjectid` int(8) NOT NULL,"
     "  `workname` varchar(32) NOT NULL,"
-    "  `type` enum('video', 'text', 'structuredquestions', 'shortquestions', 'MCQ') NOT NULL,"
-    "  `duration(minutes)` int(4) NOT NULL,"
+    "  `type` varchar(32) NOT NULL,"
+    "  `duration` int(4) NOT NULL,"
     "  PRIMARY KEY (`workid`), UNIQUE KEY `workname` (`workname`)"
     ") ENGINE=InnoDB")
 

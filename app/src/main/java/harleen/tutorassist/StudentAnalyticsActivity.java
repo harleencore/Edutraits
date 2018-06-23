@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.RetryPolicy;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -42,50 +43,51 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
 
     RequestQueue rq;
 
-    String request_url = "http://localhost/testapi.php";
-    FloatingActionButton fab = findViewById(R.id.fab);
+    String request_url = "http://192.168.0.1/feed.php";
+//    FloatingActionButton fab = findViewById(R.id.fab);
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_analytics_page);
 
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.student_id);
-
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.textView);
-        textView.setText("Student " + message + "'s performance graph");
-
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-        graph.addSeries(series);
-        // styling series
-        series.setTitle("Random Curve 1");
-        series.setColor(Color.GREEN);
-        series.setDrawDataPoints(true);
-        series.setDataPointsRadius(10);
-        series.setThickness(8);
-
-        // custom paint to make a dotted line
-        Paint paint = new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
-        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-        series.setCustomPaint(paint);
+//        // Get the Intent that started this activity and extract the string
+//        Intent intent = getIntent();
+//        String message = intent.getStringExtra(MainActivity.student_id);
+//
+//        // Capture the layout's TextView and set the string as its text
+//        TextView textView = findViewById(R.id.textView);
+//        textView.setText("Student " + message + "'s performance graph");
+//
+//        GraphView graph = (GraphView) findViewById(R.id.graph);
+//        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+//                new DataPoint(0, 1),
+//                new DataPoint(1, 5),
+//                new DataPoint(2, 3),
+//                new DataPoint(3, 2),
+//                new DataPoint(4, 6)
+//        });
+//        graph.addSeries(series);
+//        // styling series
+//        series.setTitle("Random Curve 1");
+//        series.setColor(Color.GREEN);
+//        series.setDrawDataPoints(true);
+//        series.setDataPointsRadius(10);
+//        series.setThickness(8);
+//
+//        // custom paint to make a dotted line
+//        Paint paint = new Paint();
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeWidth(10);
+//        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+//        series.setCustomPaint(paint);
 
         // Load work history
 
         rq = Volley.newRequestQueue(this);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycleViewContainer);
+
+        recyclerView =  findViewById(R.id.recycleViewContainer);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
@@ -94,17 +96,19 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
 
         workHistoryUtilsList = new ArrayList<>();
 
+
+
         sendRequest();
 
-        //floating action button
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        //floating action button
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
     public void sendRequest(){
 
@@ -138,11 +142,12 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("Volley Error: ", "error");
+                Log.i("Volley Error: ", "error:" + error);
             }
         });
 
         rq.add(jsonArrayRequest);
+        
 
     }
 
