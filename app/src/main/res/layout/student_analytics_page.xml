@@ -1,65 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_height="match_parent"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:background="#fff"
+    xmlns:android="http://schemas.android.com/apk/res/android">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:textSize="20dp"
-                android:fontFamily="oxygen"
-                android:textColor="#000000"
-                style="bold"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:textSize="20dp"
+                    android:fontFamily="oxygen"
+                    android:textColor="#000"
+                    style="bold"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"/>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:src="@drawable/ic_my_icon"
+                    app:fabSize="mini"/>
+
+            </LinearLayout>
+
+
             <com.jjoe64.graphview.GraphView
                 android:layout_width="match_parent"
                 android:layout_height="200dip"
-                android:id="@+id/graph" />
+                android:id="@+id/graph"/>
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30sp"
                 android:text="Assignment History"
                 android:textSize="15sp"
-                android:textColor="#000000"/>
+                android:textColor="#000"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="75dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     android:textSize="18dp"
                     android:text="Subject"
-                    android:background="#bf360c"
+                    android:background="#d85b00"
                     android:textColor="#f5f5f5"
                     android:textAlignment="center"/>
                 <TextView
                     android:layout_width="135dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     android:textSize="18dp"
-                    android:text="Type"
-                    android:background="#311b92"
+                    android:text="Category"
+                    android:background="#ff6a00"
                     android:textColor="#f5f5f5"
                     android:textAlignment="center"/>
                 <TextView
                     android:layout_width="75dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     android:textSize="18dp"
                     android:text="Duration"
-                    android:background="#c51162"
+                    android:background="#ff8046"
                     android:textColor="#f5f5f5"
                     android:textAlignment="center"/>
                 <TextView
                     android:layout_width="75dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     android:textSize="18dp"
                     android:text="Rating"
-                    android:background="#1b5e20"
+                    android:background="#ff7c71"
                     android:textColor="#f5f5f5"
                     android:textAlignment="center"/>
             </LinearLayout>
@@ -69,13 +89,7 @@
 
 
 
-                <!--<android.support.design.widget.FloatingActionButton-->
-                    <!--android:id="@+id/fab"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="end|bottom"-->
-                    <!--android:src="@drawable/ic_my_icon"-->
-                    <!--android:layout_margin="16dp" />-->
+
 
 
 

@@ -114,43 +114,36 @@ public class MainActivity extends AppCompatActivity {
         int[] idPics = new int[]{
                 R.drawable.s1,
                 R.drawable.s2,
-                R.drawable.s2,
+                R.drawable.s3,
                 R.drawable.s4,
                 R.drawable.s5,
                 R.drawable.s6,
                 R.drawable.s7,
-                R.drawable.s8,
-                R.drawable.s9,
-                R.drawable.s10};
+                R.drawable.s8};
 
-        Student a = new Student("Kelly", "p1", 7, idPics[0]);
+
+        Student a = new Student("Kelly Chan", "Primary 1", 7, idPics[0]);
         studentList.add(a);
 
-        a = new Student("Sarah", "p3", 8, idPics[1]);
+        a = new Student("Lucas Lee", "Primary 3", 8, idPics[1]);
         studentList.add(a);
 
-        a = new Student("JOhn", "p5", 11, idPics[2]);
+        a = new Student("Teerath Singh", "Primary 5", 11, idPics[2]);
         studentList.add(a);
 
-        a = new Student("Leo", "p6", 12, idPics[3]);
+        a = new Student("Xuan Wei", "Primary 6", 12, idPics[3]);
         studentList.add(a);
 
-        a = new Student("Xuan Wei", "p3", 9, idPics[4]);
+        a = new Student("Li De", "Primary 2", 9, idPics[4]);
         studentList.add(a);
 
-        a = new Student("Jacy", "p4", 10, idPics[5]);
+        a = new Student("Sarah Chew", "Primary 4", 10, idPics[5]);
         studentList.add(a);
 
-        a = new Student("Li De", "p2", 8, idPics[6]);
+        a = new Student("Zachary Tan", "Primary 4", 8, idPics[6]);
         studentList.add(a);
 
-        a = new Student("Zach", "p5", 11, idPics[7]);
-        studentList.add(a);
-
-        a = new Student("Harleen", "p6", 11, idPics[8]);
-        studentList.add(a);
-
-        a = new Student("Dini", "p2", 8, idPics[9]);
+        a = new Student("Kwan Ming", "Primary 2", 11, idPics[7]);
         studentList.add(a);
 
         adapter.notifyDataSetChanged();
