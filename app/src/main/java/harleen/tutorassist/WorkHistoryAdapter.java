@@ -44,9 +44,9 @@ public class WorkHistoryAdapter extends RecyclerView.Adapter<WorkHistoryAdapter.
     public void onBindViewHolder(final MyViewHolder holder, int position){
         WorkHistoryItem workHistoryItem = workHistList.get(position);
         holder.title.setText(workHistoryItem.getTitle());
-        holder.type.setText(workHistoryItem.getType());
-        holder.durn.setText(Integer.toString(workHistoryItem.getDurn()));
-        holder.rating.setText(Integer.toString(workHistoryItem.getRating()));
+        holder.type.setText( workHistoryItem.getType());
+        holder.durn.setText(Integer.toString(workHistoryItem.getDurn()) + " mins");
+        holder.rating.setText(Integer.toString(workHistoryItem.getRating()) + "/5");
 
 
     }

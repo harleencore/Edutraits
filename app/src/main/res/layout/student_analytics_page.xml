@@ -11,7 +11,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView"/>
+                android:id="@+id/textView"
+                android:textSize="20dp"
+                android:fontFamily="oxygen"
+                android:textColor="#000000"
+                style="bold"/>
             <com.jjoe64.graphview.GraphView
                 android:layout_width="match_parent"
                 android:layout_height="200dip"
@@ -19,7 +23,46 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Assignment History"/>
+                android:text="Assignment History"
+                android:textSize="15sp"
+                android:textColor="#000000"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Subject"
+                    android:background="#bf360c"
+                    android:textColor="#f5f5f5"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Type"
+                    android:background="#311b92"
+                    android:textColor="#f5f5f5"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Duration"
+                    android:background="#c51162"
+                    android:textColor="#f5f5f5"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:text="Rating"
+                    android:background="#1b5e20"
+                    android:textColor="#f5f5f5"
+                    android:textAlignment="center"/>
+            </LinearLayout>
 
 
 

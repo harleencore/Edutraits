@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="30dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="match_parent"
             android:text="ASST TITLE"
-            android:id="@+id/title"/>
+            android:id="@+id/title"
+            android:textSize="15dp"
+            android:textAlignment="center"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="135dp"
             android:layout_height="match_parent"
             android:text="ASST TYPE"
-            android:id="@+id/type"/>
+            android:id="@+id/type"
+            android:textSize="15dp"
+            android:textAlignment="center"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="match_parent"
             android:text="DURN"
-            android:id="@+id/durn"/>
+            android:id="@+id/durn"
+            android:textSize="15dp"
+            android:textAlignment="center"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="match_parent"
             android:text="RATING"
-            android:id="@+id/rating"/>
+            android:id="@+id/rating"
+            android:textSize="15dp"
+            android:textAlignment="center"/>
 
     </LinearLayout>
 
