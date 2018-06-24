@@ -122,25 +122,25 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.s8};
 
 
-        Student a = new Student("Kelly Chan", "Primary 1", 7, idPics[0]);
+        Student a = new Student("Abdul Nazrin", "Primary 1", 7, idPics[0]);
         studentList.add(a);
 
-        a = new Student("Lucas Lee", "Primary 3", 8, idPics[1]);
+        a = new Student("Xiao Tong", "Primary 3", 8, idPics[1]);
         studentList.add(a);
 
-        a = new Student("Teerath Singh", "Primary 5", 11, idPics[2]);
+        a = new Student("Derek Zoolander", "Primary 5", 11, idPics[2]);
         studentList.add(a);
 
         a = new Student("Xuan Wei", "Primary 6", 12, idPics[3]);
         studentList.add(a);
 
-        a = new Student("Li De", "Primary 2", 9, idPics[4]);
+        a = new Student("Jamie Tan", "Primary 2", 9, idPics[4]);
         studentList.add(a);
 
-        a = new Student("Sarah Chew", "Primary 4", 10, idPics[5]);
+        a = new Student("Zachary Tan", "Primary 4", 10, idPics[5]);
         studentList.add(a);
 
-        a = new Student("Zachary Tan", "Primary 4", 8, idPics[6]);
+        a = new Student("Sophia Danial", "Primary 4", 8, idPics[6]);
         studentList.add(a);
 
         a = new Student("Kwan Ming", "Primary 2", 11, idPics[7]);

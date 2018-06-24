@@ -14,7 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +33,13 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
     private WorkHistoryAdapter adapter;
     private List<WorkHistoryItem> workHistList;
     String[] names = new String[]{
-            "Kelly Chan",
-            "Lucas Lee",
-            "Teerath Singh",
+            "Abdul Nazrin",
+            "Xiao Tong",
+            "Derek Zoolander",
             "Xuan Wei",
-            "Li De",
-            "Sarah Chew",
+            "Jamie Tan",
             "Zachary Tan",
+            "Sophia Danial",
             "Kwan Ming"
 
 
@@ -335,29 +337,62 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
-    private void showAddItemDialog(Context c) {
-        final EditText taskEditText = new EditText(c);
-        AlertDialog dialog = new AlertDialog.Builder(c)
-                .setTitle("Add Assignment Log")
-                .setMessage("Subject")
-                .setView(taskEditText)
-                .setMessage("Category")
-                .setView(taskEditText)
-                .setMessage("Duration")
-                .setView(taskEditText)
-                .setMessage("Rating")
-                .setView(taskEditText)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(StudentAnalyticsActivity.this, "profile updated!", Toast.LENGTH_SHORT).show();;
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .create();
+    private void showAddItemDialog(Context context) {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        dialog.setTitle("Enter performance log");
+
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText titleBox = new EditText(context);
+        titleBox.setHint("Subject");
+        layout.addView(titleBox);
+
+
+        final EditText descriptionBox = new EditText(context);
+        descriptionBox.setHint("Category");
+        layout.addView(descriptionBox);
+
+        final EditText durnBox = new EditText(context);
+        durnBox.setHint("Duration");
+        layout.addView(durnBox);
+
+        final EditText rating = new EditText(context);
+        rating.setHint("rating");
+        layout.addView(rating);
+
+        // Set click listener for alert dialog buttons
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch(which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // User clicked the Yes button
+                        Toast.makeText(StudentAnalyticsActivity.this, "submiited!", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // User clicked the No button
+                        break;
+                }
+            }
+        };
+
+        // Set the alert dialog yes button click listener
+        dialog.setPositiveButton("Yes", dialogClickListener);
+
+        // Set the alert dialog no button click listener
+        dialog.setNegativeButton("No",dialogClickListener);
+
+
+
+        dialog.setView(layout); // Again this is a set method, not add
         dialog.show();
     }
 
-    }
+
+
+
+}
 
 

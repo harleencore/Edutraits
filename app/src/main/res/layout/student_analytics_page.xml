@@ -22,8 +22,7 @@
                     android:textColor="#000"
                     style="bold"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="10dp"/>
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fab"
