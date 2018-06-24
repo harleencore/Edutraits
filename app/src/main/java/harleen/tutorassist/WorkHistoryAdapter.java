@@ -6,67 +6,55 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.List;
 
-
-public class WorkHistoryAdapter extends RecyclerView.Adapter<WorkHistoryAdapter.ViewHolder> {
+public class WorkHistoryAdapter extends RecyclerView.Adapter<WorkHistoryAdapter.MyViewHolder> {
 
     private Context context;
-    private List<WorkHistoryUtils> workHistoryUtils;
+    private List<WorkHistoryItem> workHistList;
 
-    public WorkHistoryAdapter(Context context, List personUtils) {
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, type, durn, rating;
+
+        public MyViewHolder(View view){
+            super(view);
+            title = view.findViewById(R.id.title);
+            type = view.findViewById(R.id.type);
+            durn = view.findViewById(R.id.durn);
+            rating = view.findViewById(R.id.rating);
+        }
+    }
+
+    public WorkHistoryAdapter(Context context, List<WorkHistoryItem> workHistList){
         this.context = context;
-        this.workHistoryUtils = personUtils;
+        this.workHistList = workHistList;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.work_history_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.work_history_item, parent, false);
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemView.setTag(workHistoryUtils.get(position));
+    public void onBindViewHolder(final MyViewHolder holder, int position){
+        WorkHistoryItem workHistoryItem = workHistList.get(position);
+        holder.title.setText(workHistoryItem.getTitle());
+        holder.type.setText(workHistoryItem.getType());
+        holder.durn.setText(Integer.toString(workHistoryItem.getDurn()));
+        holder.rating.setText(Integer.toString(workHistoryItem.getRating()));
 
-        WorkHistoryUtils wh = workHistoryUtils.get(position);
-
-        holder.workname.setText(wh.getWorkname());
-        holder.type.setText(wh.getType());
 
     }
 
     @Override
     public int getItemCount() {
-        return workHistoryUtils.size();
+        return workHistList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
-        public TextView workname;
-        public TextView type;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            workname = itemView.findViewById(R.id.workname);
-            type = itemView.findViewById(R.id.type);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    WorkHistoryUtils cpu = (WorkHistoryUtils) view.getTag();
-
-                    Toast.makeText(view.getContext(), cpu.getWorkname()+  cpu.getType(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
-
-        }
-    }
 
 }

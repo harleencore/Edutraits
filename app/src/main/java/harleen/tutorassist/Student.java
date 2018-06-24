@@ -44,7 +44,7 @@ public class Student {
         return thumbnail;
     }
 
-    public void setThumbnail(){
+    public void setThumbnail(int thumbnail){
         this.thumbnail = thumbnail;
     }
 

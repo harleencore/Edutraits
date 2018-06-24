@@ -1,49 +1,39 @@
 package harleen.tutorassist;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.util.TypedValue;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.volley.RetryPolicy;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class StudentAnalyticsActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView recyclerView;
+    private WorkHistoryAdapter adapter;
+    private List<WorkHistoryItem> workHistList;
 
-    List<WorkHistoryUtils> workHistoryUtilsList;
-
-    RequestQueue rq;
-
-    String request_url = "http://192.168.0.1/feed.php";
 //    FloatingActionButton fab = findViewById(R.id.fab);
 
 
@@ -51,54 +41,37 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_analytics_page);
 
-//        // Get the Intent that started this activity and extract the string
-//        Intent intent = getIntent();
-//        String message = intent.getStringExtra(MainActivity.student_id);
-//
-//        // Capture the layout's TextView and set the string as its text
-//        TextView textView = findViewById(R.id.textView);
-//        textView.setText("Student " + message + "'s performance graph");
-//
-//        GraphView graph = (GraphView) findViewById(R.id.graph);
-//        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-//                new DataPoint(0, 1),
-//                new DataPoint(1, 5),
-//                new DataPoint(2, 3),
-//                new DataPoint(3, 2),
-//                new DataPoint(4, 6)
-//        });
-//        graph.addSeries(series);
-//        // styling series
-//        series.setTitle("Random Curve 1");
-//        series.setColor(Color.GREEN);
-//        series.setDrawDataPoints(true);
-//        series.setDataPointsRadius(10);
-//        series.setThickness(8);
-//
-//        // custom paint to make a dotted line
-//        Paint paint = new Paint();
-//        paint.setStyle(Paint.Style.STROKE);
-//        paint.setStrokeWidth(10);
-//        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
-//        series.setCustomPaint(paint);
+        // Get the Intent that started this activity and extract the string
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.student_id);
 
-        // Load work history
+        // Capture the layout's TextView and set the string as its text
+        TextView textView = findViewById(R.id.textView);
+        textView.setText("Student " + message + "'s performance graph");
 
-        rq = Volley.newRequestQueue(this);
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
+        // styling series
+        series.setTitle("Random Curve 1");
+        series.setColor(Color.GREEN);
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(10);
+        series.setThickness(8);
 
+        // custom paint to make a dotted line
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(10);
+        paint.setPathEffect(new DashPathEffect(new float[]{8, 5}, 0));
+        series.setCustomPaint(paint);
 
-        recyclerView =  findViewById(R.id.recycleViewContainer);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new LinearLayoutManager(this);
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        workHistoryUtilsList = new ArrayList<>();
-
-
-
-        sendRequest();
 
 //        //floating action button
 //
@@ -109,47 +82,47 @@ public class StudentAnalyticsActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+
+        recyclerView = findViewById(R.id.recycler_view);
+
+        workHistList = new ArrayList<>();
+        adapter = new WorkHistoryAdapter(this, workHistList);
+//
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+        prepWorkHistory();
     }
-    public void sendRequest(){
+    private void prepWorkHistory() {
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, request_url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        WorkHistoryItem a = new WorkHistoryItem("math", "mcq", 15, 5);
+        workHistList.add(a);
 
-                for(int i = 0; i < response.length(); i++){
+        a = new WorkHistoryItem("english", "video", 8, 3);
+        workHistList.add(a);
 
-                    WorkHistoryUtils workHistoryUtils = new WorkHistoryUtils();
+        a = new WorkHistoryItem("english", "video", 11, 2);
+        workHistList.add(a);
 
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
+        a = new WorkHistoryItem("science", "word problems", 12, 3);
+        workHistList.add(a);
 
-                        workHistoryUtils.setWorkname(jsonObject.getString("workname"));
-                        workHistoryUtils.setType(jsonObject.getString("type"));
+        a = new WorkHistoryItem("math", "short answer", 20, 5);
+        workHistList.add(a);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        a = new WorkHistoryItem("math", "video", 30, 2);
+        workHistList.add(a);
 
-                    workHistoryUtilsList.add(workHistoryUtils);
+        a = new WorkHistoryItem("science", "short answer", 30, 4);
+        workHistList.add(a);
 
-                }
-
-                adapter = new WorkHistoryAdapter(StudentAnalyticsActivity.this, workHistoryUtilsList);
-
-                recyclerView.setAdapter(adapter);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("Volley Error: ", "error:" + error);
-            }
-        });
-
-        rq.add(jsonArrayRequest);
-        
-
+        adapter.notifyDataSetChanged();
     }
 
 
-}
+    }
+
+
